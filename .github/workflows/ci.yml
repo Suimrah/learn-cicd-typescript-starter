@@ -27,6 +27,7 @@ jobs:
     name: Style
     runs-on: ubuntu-latest
 
+
     steps:
       - name: Check out code
         uses: actions/checkout@v6
@@ -41,3 +42,6 @@ jobs:
 
       - name: Check Formatting
         run: npm run format:check
+      
+      - name: Lint
+        run: npm run lint
