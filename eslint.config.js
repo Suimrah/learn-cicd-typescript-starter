@@ -1,17 +1,24 @@
 import js from "@eslint/js";
 import globals from "globals";
 import tseslint from "typescript-eslint";
+import { defineConfig } from "eslint/config";
+import pluginSecurity from "eslint-plugin-security";
 
-export default tseslint.config(
-  { ignores: ["dist/**", "coverage/**", "src/db/migrations/**"] },
-  js.configs.recommended,
-  ...tseslint.configs.recommended,
+export default defineConfig([
   {
-    files: ["src/**/*.ts"],
-    languageOptions: {
+    files: ["**/*.{js,mjs,cjs,ts,mts,cts}"],
+    plugins: { js },
+    extends: ["js/recommended"],
+  },
+  {
+    files: ["**/*.{js,mjs,cjs,ts,mts,cts}"],
+    languageOptions: { 
+      globals: globals.node, 
       ecmaVersion: "latest",
-      sourceType: "module",
-      globals: globals.node,
+      sourceType: "module"
+
     },
   },
-);
+  tseslint.configs.recommended,
+  pluginSecurity.configs.recommended,
+]);
